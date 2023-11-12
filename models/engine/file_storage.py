@@ -12,6 +12,9 @@ from models.user import User
 
 class FileStorage:
     """ Class that represents storage engine"""
+    
+    __file_path = "file.json"
+    __objects = {}
 
     def all(self):
         """Returns the dictionary __objects"""
@@ -39,7 +42,7 @@ class FileStorage:
         otherwise, do nothing. If the file doesn’t exist,
         no exception should be raised)"""
 
-         try:
+        try:
             with open(FileStorage.__file_path) as f:
                 objdict = json.load(f)
                 for o in objdict.values():
