@@ -9,27 +9,29 @@ from models.place import Place
 from models.engine.file_storage import FileStorage
 from models.city import City
 from models.amenity import Amenity
+
+
 def searcher(arg):
     pass
+
+
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
+    all_the_classes = {
+            "BaseModel", "User", "Review", "State", "Place", "City", "Amenity"}
 
-    all_the_classes={"BaseModel" 
-            , "User" 
-            , "Review" 
-            , "State" 
-            , "Place"
-            , "City"
-            , "Amenity" }
-    def the_Base_interpreter(self , arg):
+    def the_Base_interpreter(self, arg):
 
-        commands_dict={"show":self.do_show() , "all":self.do_all() , "destroy":self.do_destroy() }
-    
-    def do_creat(self,line):
-    """creat class"""
-        result=searcher(arg)
+        commands_dict = {
+                "show": self.do_show(),
+                "all": self.do_all(), "destroy": self.do_destroy()}
 
-        if len(result)==0:
+    def do_creat(self, line):
+
+        """creat class"""
+        result = searcher(arg)
+
+        if len(result) == 0:
             print("** class name missing **")
         elif result[0] not in HBNBCommand.all_the_classes:
             print("** class doesn't exist **")
@@ -37,30 +39,38 @@ class HBNBCommand(cmd.Cmd):
             print(eval(result[0])().id)
             FileStorage.save()
 
-    def do_quit(self,arg):
+    def do_quit(self, arg):
+
         """Quit command to exit the program"""
         return True
-    def do_EOF(self,line):
+
+    def do_EOF(self, line):
+
         """Eixt """
         return True
+
     def emptyline(self):
+
         """when there is empty line do nothing"""
         pass
-    
-    def do_show(self,arg):
+
+    def do_show(self, arg):
+
         result = searcher(arg)
-        objects=FileStorage.all()
-        if len(result)==0 :
+        objects = FileStorage.all()
+        if len(result) == 0:
             print("** class name missing **")
         elif result[0] not in HBNBCommand.all_the_classes:
             print("** class doesn't exist **")
-        elif len(result)==1:
+        elif len(result) == 1:
             print("** instance id missing **")
         elif "{}.{}".format(result[0], result[1]) not in objects:
             print("** no instance found **")
         else:
             print(objects["{}.{}".format(result[0], result[1])])
+
     def do_destroy(self, arg):
+
         """destroy class"""
         result = searcher(arg)
         objects = FileStorage.all()
@@ -75,7 +85,9 @@ class HBNBCommand(cmd.Cmd):
         else:
             del objects["{}.{}".format(result[0], result[1])]
             FileStorage.save()
+
     def do_all(self, arg):
+
         """show string representations """
         result = searcher(arg)
         if len(result) > 0 and result[0] not in HBNBCommand.all_the_classes:
@@ -88,5 +100,7 @@ class HBNBCommand(cmd.Cmd):
                 elif len(result) == 0:
                     object_list.append(objec.__str__())
             print(object_list)
-if __name__=='__main__':
+
+
+if __name__ == '__main__':
     HBNBCommand().cmdloop()
