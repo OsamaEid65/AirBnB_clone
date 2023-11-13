@@ -30,7 +30,10 @@ def searcher(arg):
         retl.append(curly_braces.group())
         return retl
 
+
 class HBNBCommand(cmd.Cmd):
+    """Class HBNBCommand that represents console"""
+
     prompt = "(hbnb) "
     all_the_classes = {
             "BaseModel", "User", "Review", "State", "Place", "City", "Amenity"}

@@ -12,7 +12,7 @@ from models.user import User
 
 class FileStorage:
     """ Class that represents storage engine"""
-    
+
     __file_path = "file.json"
     __objects = {}
 
