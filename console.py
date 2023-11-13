@@ -59,7 +59,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, line):
 
         """create class"""
-        result = searcher(arg)
+        result = searcher(line)
 
         if len(result) == 0:
             print("** class name missing **")
